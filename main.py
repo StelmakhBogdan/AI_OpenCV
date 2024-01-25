@@ -6,4 +6,3 @@ cv2.waitKey(0)
 
 
 print("Hello, World!")
-print("Hello, World!")
