@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 
+import imutils
+
 # from helpers.rotate import rotate
 
 # try to do binary img for easy clustering material
@@ -50,6 +52,7 @@ import numpy as np
 
 # cv2.imshow('Photo', new_image)
 # cv2.waitKey(0)
+
 
 image = cv2.imread('images/people2.webp')
 grey_img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
