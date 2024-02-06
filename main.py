@@ -69,10 +69,10 @@ from matplotlib import pyplot as pl
 # cv2.imshow('Neural Network result', image)
 # cv2.waitKey(0)
 
-img = cv2.imread('images/gla.jpeg')
+img = cv2.imread('images/lamba.jpeg')
 gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 img_filter = cv2.bilateralFilter(gray_img, 11, 15, 15)
-edges = cv2.Canny(img_filter,  30, 200)
+edges = cv2.Canny(img_filter, 30, 200)
 
 cont = cv2.findContours(edges.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 cont = imutils.grab_contours(cont)
@@ -87,12 +87,28 @@ for c in cont:
         pos = approx
         break
 
-
 print(pos)
 
 mask = np.zeros(gray_img.shape, np.uint8)
 new_img = cv2.drawContours(mask, [pos], 0, 255, -1)
 bitwise_img = cv2.bitwise_and(img, img, mask=mask)
 
-pl.imshow(cv2.cvtColor(bitwise_img, cv2.COLOR_BGR2RGB))
+(x, y) = np.where(mask == 255)
+(x1, y1) = np.min(x), np.min(y)
+x2, y2 = np.max(x), np.max(y)
+crop_img = gray_img[x1:x2, y1:y2]
+
+text_from_car_number = easyocr.Reader(['en'])
+text_from_car_number = text_from_car_number.readtext(crop_img)
+
+print('text_from_car_number', text_from_car_number)
+
+text = text_from_car_number[0][-2]
+number = text_from_car_number[1][-2]
+res = f"{text} {number}"
+
+final_image = cv2.putText(img, res, (x1, y2 + 30), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 2)
+final_image = cv2.rectangle(img, (x1, x2), (y1, y2), (0, 255, 0), thickness=3)
+
+pl.imshow(cv2.cvtColor(crop_img, cv2.COLOR_BGR2RGB))
 pl.show()
