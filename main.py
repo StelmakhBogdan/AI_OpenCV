@@ -107,6 +107,8 @@ text = text_from_car_number[0][-2]
 number = text_from_car_number[1][-2]
 res = f"{text} {number}"
 
+print(res)
+
 final_image = cv2.putText(img, res, (x1, y2 + 30), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 2)
 final_image = cv2.rectangle(img, (x1, x2), (y1, y2), (0, 255, 0), thickness=3)
 
