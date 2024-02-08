@@ -94,7 +94,7 @@ new_img = cv2.drawContours(mask, [pos], 0, 255, -1)
 bitwise_img = cv2.bitwise_and(img, img, mask=mask)
 
 (x, y) = np.where(mask == 255)
-(x1, y1) = np.min(x), np.min(y)
+x1, y1 = np.min(x), np.min(y)
 x2, y2 = np.max(x), np.max(y)
 crop_img = gray_img[x1:x2, y1:y2]
 
@@ -107,10 +107,9 @@ text = text_from_car_number[0][-2]
 number = text_from_car_number[1][-2]
 res = f"{text} {number}"
 
-print(res)
 
-final_image = cv2.putText(img, res, (x1, y2 + 30), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 2)
-final_image = cv2.rectangle(img, (x1, x2), (y1, y2), (0, 255, 0), thickness=3)
+final_image = cv2.putText(img, res, (y2, x2 - 40), cv2.FONT_HERSHEY_PLAIN, 3, (0, 0, 255), 2)
+final_image_result = cv2.rectangle(img, (y1, x1), (y2, x2), (0, 255, 0), thickness=3)
 
-pl.imshow(cv2.cvtColor(crop_img, cv2.COLOR_BGR2RGB))
+pl.imshow(cv2.cvtColor(final_image_result, cv2.COLOR_BGR2RGB))
 pl.show()
