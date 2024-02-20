@@ -101,8 +101,6 @@ crop_img = gray_img[x1:x2, y1:y2]
 text_from_car_number = easyocr.Reader(['en'])
 text_from_car_number = text_from_car_number.readtext(crop_img)
 
-print('text_from_car_number', text_from_car_number)
-
 text = text_from_car_number[0][-2]
 number = text_from_car_number[1][-2]
 res = f"{text} {number}"
