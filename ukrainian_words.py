@@ -134,7 +134,7 @@ keyboard_layout = {
 # Generating 50 lines for file, u can change range for generating more words
 lines = []
 single_words_lines = []
-for _ in range(50):
+for _ in range(60):
     rank = random.choice(animals).capitalize()
     characteristic = random.choice(officers_characteristics)
     profession = random.choice(professions_list)
